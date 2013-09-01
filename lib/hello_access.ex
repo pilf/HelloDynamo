@@ -39,19 +39,6 @@ defmodule HelloDynamo.Access do
     use HelloDb
     q = Exquisite.match PastSalutations, where: name == person_name
     Amnesia.transaction do: PastSalutations.select q
-    #Amnesia.transaction do
-    #  PastSalutations.select 
-    #  #{ _, matches, _ } = PastSalutations.select q |> Enum.count
-    #end
   end
-
-  #def handle_call({:person_already_helloed, input}, _, _) do
-# #   use HelloDb
-  #   already_helloed = Exquisite.match HelloDb.PastSalutations, where: name == "input"
-  #  Amnesia.transaction do
-  #    { _, matches, _ } = HelloDb.PastSalutations.select already_helloed |> Enum.count
-  #  end
-  #  { :reply, true, nil }
-  #end
 end
     
