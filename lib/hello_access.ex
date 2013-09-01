@@ -31,8 +31,20 @@ defmodule HelloDynamo.Access do
       nil -> []
       { _, m, _ } -> m
     end
+
     ah? = matches |> Enum.count > 0
     { :reply, ah?, nil }
+  end
+
+  def handle_cast { :hello, person_name }, _ do
+    use HelloDb
+    Amnesia.transaction! do 
+      PastSalutations[ 
+        name: person_name, 
+        number_of_hellos: 1 ].write
+    end
+
+    { :noreply, nil }
   end
 
   def run_already_helloed_query(person_name) do
