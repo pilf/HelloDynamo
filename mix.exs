@@ -6,7 +6,7 @@ defmodule HelloDynamo.Mixfile do
       version: "0.0.1",
       dynamos: [HelloDynamo.Dynamo],
       compilers: [:elixir, :dynamo, :app],
-      env: [prod: [compile_path: "ebin"]],
+      env: [ prod: [compile_path: "ebin"] ],
       compile_path: "tmp/#{Mix.env}/hello_dynamo/ebin",
       deps: deps ]
   end

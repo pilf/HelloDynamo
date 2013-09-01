@@ -27,7 +27,6 @@ defmodule ApplicationRouter do
     conn = conn.assign(:model, handle_hello(name))
 
     render conn, "hello.html"
-    #conn.resp(200, "Hello #{conn.params[:name]} - #{model.already_helloed}")
   end
 
   defrecord HelloModel, name: "AC", already_helloed: false

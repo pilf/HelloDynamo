@@ -16,8 +16,9 @@ defmodule HelloDynamo.Access do
   # GenServer implementation
 
   def init _ do
+    Amnesia.Schema.create
     Amnesia.start
-    HelloDb.create
+    HelloDb.create disk: [ node ]
     HelloDb.wait
     { :ok, nil }
   end
