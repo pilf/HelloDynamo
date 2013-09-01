@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title><%= @title %></title>
+<head>
+<body>
+    <h1>
+        Ahh, <%= @model.name %>, so good of you to come.
+    <h1>
+
+    <%= if @model.already_helloed do %>
+        <span style="color:green"> Good to see you again.</span>
+    <% else %>
+        <span style="color:blue">Marvelous to see a new name.</span>
+    <% end %> 
+</body>
+</html>
