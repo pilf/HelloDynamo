@@ -9,7 +9,15 @@ defmodule HelloDynamo.Access do
   # External API
 
   def start_link do
-    :gen_server.start_link __MODULE__, nil, []
+    :gen_server.start_link { :local, :hello_db }, __MODULE__, nil, []
+  end
+
+  def already_helloed?(name) do
+    :gen_server.call :hello_db, { :already_helloed, name }
+  end
+
+  def hello(name) do
+    :gen_server.cast :hello_db, { :hello, name }
   end
 
   #####
@@ -21,6 +29,10 @@ defmodule HelloDynamo.Access do
     HelloDb.create disk: [ node ]
     HelloDb.wait
     { :ok, nil }
+  end
+
+  def terminate(_reason, _state) do
+    HelloDb.stop
   end
 
   def handle_call :sanity, _, _ do

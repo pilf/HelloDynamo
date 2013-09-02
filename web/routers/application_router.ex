@@ -23,18 +23,15 @@ defmodule ApplicationRouter do
   end
   get "/hello/:name" do
     name = conn.params[:name]
-    
     conn = conn.assign(:model, handle_hello(name))
-
     render conn, "hello.html"
   end
 
   defrecord HelloModel, name: "AC", already_helloed: false
 
   defp handle_hello(name) do
-    { :ok, pid } = HelloDynamo.Access.start_link
-    helloed = :gen_server.call pid, { :already_helloed, name }
-    :gen_server.cast pid, { :hello, name }
-    HelloModel.new name: name, already_helloed: helloed
+    helloed? = HelloDynamo.Access.already_helloed? name
+    HelloDynamo.Access.hello name
+    HelloModel.new name: name, already_helloed: helloed?
   end
 end
